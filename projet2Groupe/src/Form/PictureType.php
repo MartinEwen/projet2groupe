@@ -13,8 +13,6 @@ class PictureType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('ticket')
-            ->add('comment')
         ;
     }
 
