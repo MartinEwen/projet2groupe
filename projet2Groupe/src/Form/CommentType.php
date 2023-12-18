@@ -15,8 +15,6 @@ class CommentType extends AbstractType
             ->add('content')
             ->add('dateTime')
             ->add('tagUser')
-            ->add('users')
-            ->add('ticket')
             ->add('pictures')
         ;
     }
