@@ -1,5 +1,4 @@
-body h1 {
-  color: black;
-  text-shadow: 1px 1px red;
-  text-align: center;
-}/*# sourceMappingURL=style.css.map */
+
+body {
+    min-height: 100vh;
+}
