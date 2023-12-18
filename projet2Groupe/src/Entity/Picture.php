@@ -18,11 +18,11 @@ class Picture
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Ticket::class, inversedBy: 'pictures')]
-    private Collection $ticket;
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Ticket $ticket = null;
 
-    #[ORM\ManyToMany(targetEntity: Comment::class, inversedBy: 'pictures')]
-    private Collection $comment;
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Comment $comment = null;
 
     public function __construct()
     {
@@ -47,51 +47,28 @@ class Picture
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ticket>
-     */
-    public function getTicket(): Collection
+    public function getTicket(): ?Ticket
     {
         return $this->ticket;
     }
 
-    public function addTicket(Ticket $ticket): static
+    public function setTicket(?Ticket $ticket): static
     {
-        if (!$this->ticket->contains($ticket)) {
-            $this->ticket->add($ticket);
-        }
+        $this->ticket = $ticket;
 
         return $this;
     }
 
-    public function removeTicket(Ticket $ticket): static
-    {
-        $this->ticket->removeElement($ticket);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getComment(): Collection
+    public function getComment(): ?Comment
     {
         return $this->comment;
     }
 
-    public function addComment(Comment $comment): static
+    public function setComment(?Comment $comment): static
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
-        }
+        $this->comment = $comment;
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): static
-    {
-        $this->comment->removeElement($comment);
-
-        return $this;
-    }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TicketRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
+use App\Entity\Comment;
+use App\Entity\Picture;
+use App\Entity\Language;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TicketRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -37,7 +41,7 @@ class Ticket
     #[ORM\ManyToMany(targetEntity: Language::class, mappedBy: 'ticket')]
     private Collection $languages;
 
-    #[ORM\ManyToMany(targetEntity: Picture::class, mappedBy: 'ticket')]
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Picture::class)]
     private Collection $pictures;
 
     public function __construct()
@@ -45,6 +49,7 @@ class Ticket
         $this->comments = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->dateTime = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -181,7 +186,7 @@ class Ticket
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
-            $picture->addTicket($this);
+            $picture->setTicket($this);
         }
 
         return $this;
@@ -190,7 +195,10 @@ class Ticket
     public function removePicture(Picture $picture): static
     {
         if ($this->pictures->removeElement($picture)) {
-            $picture->removeTicket($this);
+            // set the owning side to null (unless already changed)
+            if ($picture->getTicket() === $this) {
+                $picture->setTicket(null);
+            }
         }
 
         return $this;
