@@ -1,4 +1,8 @@
-
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
+body h1 {
+  color: black;
+  text-shadow: 1px 1px red;
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */
