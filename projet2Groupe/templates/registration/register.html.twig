@@ -13,11 +13,16 @@
 				{{ form_errors(registrationForm) }}
 
 				{{ form_start(registrationForm) }}
-				{{ form_row(registrationForm.email) }}
-				{{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
-				{{ form_row(registrationForm.agreeTerms) }}
+                {{ form_row(registrationForm.lastname, {label: 'Nom'}) }}
+                {{ form_row(registrationForm.firstname, {label: 'Prénom'}) }}    
+				{{ form_row(registrationForm.email, {label: 'E-mail'}) }}
 
-				<button type="submit" class="btn">Register</button>
+
+				{{ form_row(registrationForm.plainPassword, {label: 'Mot de passe'}) }}
+				{{ form_row(registrationForm.RGPDConsent) }}
+
+				<button type="submit" class="btn btn-success me-2">M'inscrire</button>
+                <a href="{{ path('app_main')}}" class="btn btn-danger">Accueil</a>
 			</div>
 		</section>
 	</main>
