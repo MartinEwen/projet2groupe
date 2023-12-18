@@ -31,7 +31,7 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Ticket $ticket = null;
 
-    #[ORM\ManyToMany(targetEntity: Picture::class, mappedBy: 'comment')]
+    #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Picture::class)]
     private Collection $pictures;
 
     public function __construct()
@@ -116,7 +116,7 @@ class Comment
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
-            $picture->addComment($this);
+            $picture->setComment($this);
         }
 
         return $this;
@@ -125,7 +125,10 @@ class Comment
     public function removePicture(Picture $picture): static
     {
         if ($this->pictures->removeElement($picture)) {
-            $picture->removeComment($this);
+            // set the owning side to null (unless already changed)
+            if ($picture->getComment() === $this) {
+                $picture->setComment(null);
+            }
         }
 
         return $this;
