@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Picture;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -19,7 +20,7 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(option: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $dateTime = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -56,12 +57,12 @@ class Comment
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getDateTime(): ?\DateTimeImmutable
     {
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeInterface $dateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 
