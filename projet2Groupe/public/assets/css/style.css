@@ -2,7 +2,7 @@ body {
   min-height: 100vh;
 }
 body h1 {
-  color: black;
+  color: rgb(11, 11, 11);
   text-shadow: 1px 1px red;
   text-align: center;
 }/*# sourceMappingURL=style.css.map */

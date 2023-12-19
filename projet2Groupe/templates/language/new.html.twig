@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Language{% endblock %}
+{% block title %}New Language
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Language</h1>
 
-    {{ include('language/_form.html.twig') }}
+	<main class="container my-3">
+		<section class="row">
+			<div class="col">
+				<h1>Create new Language</h1>
 
-    <a href="{{ path('app_language_index') }}">back to list</a>
+				{{ include('language/_form.html.twig') }}
+
+				<a href="{{ path('app_language_index') }}" class="btn btn-primary">Retour à la liste</a>
+			</div>
+		</section>
+	</main>
+    
 {% endblock %}
+
