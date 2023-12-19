@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\Ticket;
-use App\Entity\Comment;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PictureRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 class Picture
@@ -20,16 +18,16 @@ class Picture
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(targetEntity: Ticket::class ,inversedBy: 'pictures')]
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Ticket $ticket = null;
 
-    #[ORM\ManyToOne(targetEntity: Comment::class ,inversedBy: 'pictures')]
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Comment $comment = null;
 
     public function __construct()
     {
-        $this->ticket = new ArrayCollection();
-        $this->comment = new ArrayCollection();
+        $this->ticket = null;
+        $this->comment = null;
     }
 
     public function getId(): ?int
@@ -54,7 +52,7 @@ class Picture
         return $this->ticket;
     }
 
-    public function setTicket(?Ticket $ticket): self
+    public function setTicket(?Ticket $ticket): static
     {
         $this->ticket = $ticket;
 

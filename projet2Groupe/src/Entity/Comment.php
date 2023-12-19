@@ -20,8 +20,8 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column]
-    private ?\DateTimeInterface $dateTime = null;
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tagUser = null;
