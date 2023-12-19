@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TicketRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -29,8 +30,8 @@ class Ticket
     #[ORM\Column]
     private ?bool $isSolved = null;
 
-    #[ORM\Column(option: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeInterface $dateTime = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $users = null;
@@ -50,6 +51,7 @@ class Ticket
         $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->dateTime = new DateTimeImmutable();
+        $this->isSolved = false;
     }
 
     public function getId(): ?int
@@ -98,7 +100,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): self
     {
         $this->dateTime = $dateTime;
 
@@ -182,7 +184,7 @@ class Ticket
         return $this->pictures;
     }
 
-    public function addPicture(Picture $picture): static
+    public function addPicture(Picture $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
@@ -192,7 +194,7 @@ class Ticket
         return $this;
     }
 
-    public function removePicture(Picture $picture): static
+    public function removePicture(Picture $picture): self
     {
         if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)
