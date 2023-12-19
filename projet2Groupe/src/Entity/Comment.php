@@ -20,7 +20,7 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column]
     private ?\DateTimeInterface $dateTime = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -38,6 +38,7 @@ class Comment
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->dateTime = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -62,7 +63,7 @@ class Comment
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): self
     {
         $this->dateTime = $dateTime;
 
