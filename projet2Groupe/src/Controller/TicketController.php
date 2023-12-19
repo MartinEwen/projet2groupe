@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Ticket;
+use App\Entity\Picture;
 use App\Form\TicketType;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -23,7 +25,7 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
         $ticket = new Ticket();
@@ -31,6 +33,21 @@ class TicketController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictures = $form->get('pictures')->getData();
+                foreach ($pictures as $picture) {
+                    $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $picture->guessExtension(); // Utilisation de $picture au lieu de $imageFile
+                    $picture->move(
+                        $this->getParameter('pictures'),
+                        $newFilename
+                    );
+                    
+                    $img = new Picture();
+                    $img->setName($newFilename);
+                    $ticket->addPicture($img);
+                }
+
             $ticket->setUsers($user);
             $entityManager->persist($ticket);
             $entityManager->flush();
