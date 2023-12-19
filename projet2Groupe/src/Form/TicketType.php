@@ -13,8 +13,7 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description')
-            ->add('dateTime')
+            ->add('description')          
             ->add('languages')
             ->add('pictures')
         ;

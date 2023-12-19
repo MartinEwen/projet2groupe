@@ -29,7 +29,7 @@ class Ticket
     #[ORM\Column]
     private ?bool $isSolved = null;
 
-    #[ORM\Column(option: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]

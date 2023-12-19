@@ -1,35 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Language index{% endblock %}
+{% block title %}Language index
+{% endblock %}
 
 {% block body %}
-    <h1>Language index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for language in languages %}
-            <tr>
-                <td>{{ language.id }}</td>
-                <td>{{ language.name }}</td>
-                <td>
-                    <a href="{{ path('app_language_show', {'id': language.id}) }}">show</a>
-                    <a href="{{ path('app_language_edit', {'id': language.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<main class="container my-3">
+		<section class="row">
+			<div class="col">
+				<h1>Language index</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for language in languages %}
+							<tr>
+								<td>{{ language.id }}</td>
+								<td>{{ language.name }}</td>
+								<td>
+									<a href="{{ path('app_language_edit', {'id': language.id}) }}" class="btn btn-primary">Modifier</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="3">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<a href="{{ path('app_language_new') }}" class="btn btn-primary">Ajouter un language</a>
+                <a href="{{ path('admin_index') }}" class="btn btn-primary ms-2">Retour Admin</a>
+			</div>
+		</section>
+	</main>
 
-    <a href="{{ path('app_language_new') }}">Create new</a>
+
 {% endblock %}
+
