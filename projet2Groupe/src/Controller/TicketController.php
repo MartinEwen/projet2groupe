@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\Picture;
 use App\Form\TicketType;
+use App\Service\PictureService;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,28 +26,24 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, PictureService $pictureService): Response
     {
-        $user = $this->getUser();
         $ticket = new Ticket();
+        $user = $this->getUser();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pictures = $form->get('pictures')->getData();
-                foreach ($pictures as $picture) {
-                    $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $picture->guessExtension(); // Utilisation de $picture au lieu de $imageFile
-                    $picture->move(
-                        $this->getParameter('pictures'),
-                        $newFilename
-                    );
-                    
-                    $img = new Picture();
-                    $img->setName($newFilename);
-                    $ticket->addPicture($img);
-                }
+            $images = $form->get('pictures')->getData();
+            foreach($images as $image){
+                $folder = 'pictures';
+                $fichier = $pictureService->add($image, $folder);
+                $img = new Picture();
+                $img->setName($fichier);
+                $ticket->addPicture($img);
+            }
+            $slug = $slugger->slug($ticket->getTitle());
+            $ticket->setSlug($slug);
 
             $ticket->setUsers($user);
             $entityManager->persist($ticket);

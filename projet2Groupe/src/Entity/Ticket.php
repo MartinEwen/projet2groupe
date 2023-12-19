@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TicketRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -31,7 +30,7 @@ class Ticket
     private ?bool $isSolved = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $dateTime = null;
+    private ?\DateTimeInterface $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $users = null;
@@ -42,7 +41,7 @@ class Ticket
     #[ORM\ManyToMany(targetEntity: Language::class, mappedBy: 'ticket')]
     private Collection $languages;
 
-    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Picture::class, orphanRemoval: true, cascade:['persist'])]
     private Collection $pictures;
 
     public function __construct()
@@ -51,7 +50,6 @@ class Ticket
         $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->dateTime = new DateTimeImmutable();
-        $this->isSolved = false;
     }
 
     public function getId(): ?int
@@ -100,7 +98,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): self
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 
@@ -184,7 +182,7 @@ class Ticket
         return $this->pictures;
     }
 
-    public function addPicture(Picture $picture): self
+    public function addPicture(Picture $picture): static
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
@@ -194,7 +192,7 @@ class Ticket
         return $this;
     }
 
-    public function removePicture(Picture $picture): self
+    public function removePicture(Picture $picture): static
     {
         if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)
