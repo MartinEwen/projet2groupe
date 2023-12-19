@@ -5,7 +5,11 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\Picture;
 use App\Form\TicketType;
+
+use App\Repository\CommentRepository;
+
 use App\Service\PictureService;
+
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,10 +63,11 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ticket_show', methods: ['GET'])]
-    public function show(Ticket $ticket): Response
+    public function show(Ticket $ticket, CommentRepository $commentRepository): Response
     {
         return $this->render('ticket/show.html.twig', [
             'ticket' => $ticket,
+            'comments' => $commentRepository->findBy([]),
         ]);
     }
 

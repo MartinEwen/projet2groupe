@@ -6,6 +6,7 @@ use App\Entity\Picture;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -63,7 +64,7 @@ class Comment
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): self
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 
