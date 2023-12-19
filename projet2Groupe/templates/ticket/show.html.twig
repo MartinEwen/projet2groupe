@@ -1,38 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ticket{% endblock %}
+{% block title %}Ticket
+{% endblock %}
 
 {% block body %}
-    <h1>Ticket</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ticket.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ ticket.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ ticket.description }}</td>
-            </tr>
-            <tr>
-                <th>IsSolved</th>
-                <td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>DateTime</th>
-                <td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<main class="container my-3">
+		<section class="row">
+			<div class="col">
+				<h1>Ticket</h1>
 
-    <a href="{{ path('app_ticket_index') }}">back to list</a>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Id</th>
+							<td>{{ ticket.id }}</td>
+						</tr>
+						<tr>
+							<th>Auteur</th>
+							<td>{{ ticket.users.firstname }} {{ ticket.users.lastname}}</td>
+						</tr>
+						<tr>
+							<th>Title</th>
+							<td>{{ ticket.title }}</td>
+						</tr>
+						<tr>
+							<th>Description</th>
+							<td>{{ ticket.description }}</td>
+						</tr>
+						<tr>
+							<th>IsSolved</th>
+							<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
+						</tr>
+						<tr>
+							<th>DateTime</th>
+							<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+						</tr>
+					</tbody>
+				</table>
 
-    <a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}">edit</a>
+				<h1>Commentaires</h1>
+				<table class="table">
+					<tbody>
+						{% for comment in comments %}
+							{% if comment.ticket.id == ticket.id %}
+								<tr>
+									<th>Crée le</th>
+									<td>{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</td>
+								</tr>
+								{% if comment.tagUser != null %}
+								<tr>
+									<th>Tag</th>
+									<td>{{ comment.tagUser }}</td>
+								</tr>
+								{% endif %}
+								<tr>
+									<th>Auteur</th>
+									<td>{{ comment.users.firstname }} {{ ticket.users.lastname}}</td>
+								</tr>
+								<tr>
+									<th>Contenu</th>
+									<td>{{ comment.content }}</td>
+								</tr>
+							{% endif %}
+						{% else %}
+							<div class="col-12">
+								<p>Il n'y a pas encore de commentaires pour ce ticket</p>
+							</div>
+						{% endfor %}					
+					</tbody>
+				</table>
 
-    {{ include('ticket/_delete_form.html.twig') }}
+				<a href="{{ path('app_ticket_index') }}" class="btn btn-primary me-3">Retour à la liste</a>
+				<a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-primary">Modifier</a>
+
+				{{ include('ticket/_delete_form.html.twig') }}
+			</div>
+		</section>
+	</main>
+
 {% endblock %}
+

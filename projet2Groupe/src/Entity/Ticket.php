@@ -100,7 +100,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): self
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 

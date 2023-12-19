@@ -9,40 +9,42 @@
 		<section class="row">
 			<div class="col">
 				<h1>Ticket index</h1>
-
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Title</th>
-							<th>Description</th>
-							<th>IsSolved</th>
-							<th>DateTime</th>
-							<th>actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for ticket in tickets %}
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
 							<tr>
-								<td>{{ ticket.id }}</td>
-								<td>{{ ticket.title }}</td>
-								<td>{{ ticket.description }}</td>
-								<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
-								<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
-								<td>
-									<a href="{{ path('app_ticket_show', {'id': ticket.id}) }}">show</a>
-									<a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}">edit</a>
-								</td>
+								<th>Auteur</th>
+								<th>Title</th>
+								<th>Description</th>
+								<th>IsSolved</th>
+								<th>DateTime</th>
+								<th>actions</th>
 							</tr>
-						{% else %}
-							<tr>
-								<td colspan="6">no records found</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-
+						</thead>
+						<tbody>
+							{% for ticket in tickets %}
+								<tr>
+									<td>{{ ticket.users.firstname}} {{ ticket.users.lastname}}</td>
+									<td>{{ ticket.title }}</td>
+									<td>{{ ticket.description }}</td>
+									<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
+									<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+									<td>
+										<a href="{{ path('app_ticket_show', {'id': ticket.id}) }}" class="btn btn-primary me-3">Montrer</a>
+										<a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-primary">Modifier</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="6">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				
 				<a href="{{ path('app_ticket_new') }}" class="btn btn-primary">Ajouter un ticket</a>
+                <a href="{{ path('admin_index') }}" class="btn btn-primary ms-2">Retour Admin</a>
 			</div>
 		</section>
 	</main>

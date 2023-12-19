@@ -6,6 +6,7 @@ use App\Entity\Picture;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -20,8 +21,8 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column]
-    private ?\DateTimeInterface $dateTime = null;
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tagUser = null;
@@ -63,7 +64,7 @@ class Comment
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): self
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 
