@@ -26,7 +26,7 @@ class TicketController extends AbstractController
     public function index(TicketRepository $ticketRepository, PictureRepository $pictureRepository): Response
     {
         return $this->render('ticket/index.html.twig', [
-            'tickets' => $ticketRepository->findAll(),
+            'tickets' => $ticketRepository->findAllDesc(),
             'pictures' => $pictureRepository->findAll(),
         ]);
     }
@@ -68,6 +68,15 @@ class TicketController extends AbstractController
     public function show(Ticket $ticket, CommentRepository $commentRepository): Response
     {
         return $this->render('ticket/show.html.twig', [
+            'ticket' => $ticket,
+            'comments' => $commentRepository->findBy([]),
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_show', methods: ['GET'])]
+    public function showMain(Ticket $ticket, CommentRepository $commentRepository): Response
+    {
+        return $this->render('ticket/show-main.html.twig', [
             'ticket' => $ticket,
             'comments' => $commentRepository->findBy([]),
         ]);
