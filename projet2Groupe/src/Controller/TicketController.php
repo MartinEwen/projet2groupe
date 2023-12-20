@@ -6,11 +6,12 @@ use App\Entity\Ticket;
 use App\Entity\Picture;
 use App\Form\TicketType;
 
-use App\Repository\CommentRepository;
-
 use App\Service\PictureService;
 
 use App\Repository\TicketRepository;
+
+use App\Repository\CommentRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TicketController extends AbstractController
 {
     #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
-    public function index(TicketRepository $ticketRepository): Response
+    public function index(TicketRepository $ticketRepository, PictureRepository $pictureRepository): Response
     {
         return $this->render('ticket/index.html.twig', [
             'tickets' => $ticketRepository->findAll(),
+            'pictures' => $pictureRepository->findAll(),
         ]);
     }
 

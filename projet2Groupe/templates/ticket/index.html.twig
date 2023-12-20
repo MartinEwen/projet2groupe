@@ -18,6 +18,7 @@
 								<th>Description</th>
 								<th>IsSolved</th>
 								<th>DateTime</th>
+								<th>image</th>
 								<th>actions</th>
 							</tr>
 						</thead>
@@ -29,6 +30,8 @@
 									<td>{{ ticket.description }}</td>
 									<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
 									<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+									{# <td>{{ ticket.pictures.name }}</td> #}
+									<td>{{ dump(ticket) }}</td>
 									<td>
 										<a href="{{ path('app_ticket_show', {'id': ticket.id}) }}" class="btn btn-primary me-3">Montrer</a>
 										<a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-primary">Modifier</a>
