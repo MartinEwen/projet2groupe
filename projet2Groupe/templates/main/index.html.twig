@@ -5,14 +5,14 @@
 
 {% block body %}
 
-	<h1>Bienvenue sur BarbareTicket</h1>
+    <h1>Bienvenue sur BarbareTicket</h1>
 	<div class="container my-3">
 		<div class="row">
-			<aside class="col-3 border border light bg-white p-2 rounded-start-4">
-				<h2>Les derniers tickets</h2>
 
+			<aside class="col-2 border light bg-white p-2 rounded-start-4">
+                <h4 class="ms-2">Les derniers tickets</h4>
 				{% for tickets in ticket %}
-					<a href="{{ path('app_show', {'id': tickets.id}) }}">
+					<a href="{{ path('app_show', {'id': tickets.id})}}" >
 						<article class="card mb-3">
 							<div class="card-header">{{ tickets.title }}</div>
 
@@ -21,18 +21,23 @@
 									{{ tickets.id}}
 								</h6>
 
+								<p>
+									{{ tickets.users.firstname }}
+									{{ tickets.users.lastname}}
+								</p>
+
 							</div>
 						</article>
 					</a>
 				{% endfor %}
 			</aside>
-			<div class="col-9">
-				{% block show %}
-					<main class="col-9 border border-light bg-white p-2 rounded-end-4">
-						<h2 class="text-black">Ticket séléctionné</h2>
-					</main>
-				{% endblock %}
-			</div>
+
+			<main class="col-9 border border bg-white p-2 rounded-end-4" id="main">
+				{% block show %}{% endblock %}
+			</main>
+			{# <a href="{{ path('show-main.html.twig', {'id': ticket.id}) }}">Voir le ticket</a> #}
+
+
 		</div>
 
 	{% endblock %}

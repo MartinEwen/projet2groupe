@@ -5,75 +5,56 @@
 
 {% block show %}
 
-
 	<main class="container my-3">
 		<section class="row">
 			<div class="col">
-				<h1>Ticket</h1>
 
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Auteur</th>
-							<td>{{ tickets.users.firstname }}
-								{{ tickets.users.lastname}}</td>
-						</tr>
-						<tr>
-							<th>Title</th>
-							<td>{{ tickets.title }}</td>
-						</tr>
-						<tr>
-							<th>Description</th>
-							<td>{{ tickets.description }}</td>
-						</tr>
-						<th>images disponible</th>
-						<td>
-							{% for picture in pictures %}
-								{% if picture.ticket.id == tickets.id %}
-									<img src="{{ asset('image/pictures/' ~ picture.name) }}" alt="" srcset="">
-								{% endif %}
-							{% endfor %}
-						</td>
-						<tr>
-							<th>DateTime</th>
-							<td>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</td>
-						</tr>
-					</tbody>
-				</table>
+				{# <article class="card-ticket">
+                    <h2>{{ tickets.title }}</h2>
+                    <div class="card-sub">
+                        
+                        <span>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</span>
+                        <p>{{ tickets.users.firstname }} {{ tickets.users.lastname}}</p>
+                        <h4>{{ tickets.id }}</h4>
+                    </div>
+                        <p class="card-text">{{ tickets.description }}</p>
+                        <span>{{ tickets.isSolved ? 'Yes' : 'No' }}</span>
+                </article> #}
 
-				<h1>Commentaires</h1>
-				<table class="table">
-					<tbody>
-						{% for comment in comments %}
-							{% if comment.tickets.id == tickets.id %}
-								<tr>
-									<th>Crée le</th>
-									<td>{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</td>
-								</tr>
+				<article class="col-12">
+					<div class="card border-2 border-danger">
+						<div class="card-body">
+							<h2 class="card-title">{{ tickets.title }}</h2>
+							<div class="text-body-secondary d-flex justify-content-between"> <div>{{ tickets.users.firstname }} {{ tickets.users.lastname}}</div> <h4 class="card-subtitle mb-2 text-body-secondary">{{ tickets.id }}</h4> <div>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</div>   </div>
+							<p class="card-text">{{ tickets.description }}</p>
+						</div>
+					</div>
+				</article>
+
+				<h3 class="mt-2">Commentaires</h3>
+
+				{% for comment in comments %}
+
+					{% if comment.ticket.id == tickets.id %}
+						<div class="card mb-2">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</li>
 								{% if comment.tagUser != null %}
-									<tr>
-										<th>Tag</th>
-										<td>{{ comment.tagUser }}</td>
-									</tr>
+									<li class="list-group-item">{{ comment.tagUser }}</li>
 								{% endif %}
-								<tr>
-									<th>Auteur</th>
-									<td>{{ comment.users.firstname }}
-										{{ ticket.users.lastname}}</td>
-								</tr>
-								<tr>
-									<th>Contenu</th>
-									<td>{{ comment.content }}</td>
-								</tr>
-							{% endif %}
-						{% else %}
-							<div class="col-12">
-								<p>Il n'y a pas encore de commentaires pour ce ticket</p>
-							</div>
-						{% endfor %}
-					</tbody>
-				</table>
-				<a href="{{ path('app_ticket_edit', {'id': tickets.id}) }}" class="btn btn-primary">Modifier</a>
+								<li class="list-group-item">{{ comment.users.firstname }}
+									{{ comment.users.lastname}}</li>
+								<li class="list-group-item">{{ comment.content }}</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <div class="col-12">
+                        <p>Il n'y a pas encore de commentaires pour ce ticket</p>
+                    </div>        
+                {% endfor %}
+                <a href="{{ path('app_comment_new', {'id': tickets.id} )}}" class="btn btn-primary my-2">Ajouter un commentaire</a>
 
 			</div>
 		</section>

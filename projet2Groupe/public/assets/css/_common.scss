@@ -10,4 +10,18 @@ body {
         text-shadow: 1px 1px red;
         text-align: center;
     }
+
+    aside {
+        a {
+            text-decoration: none;
+        }
+    }
+
+    #main {
+        img {
+            max-height: 300px;
+            max-width: 300px;
+        }
+    }
 }
+
