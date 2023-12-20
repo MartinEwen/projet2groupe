@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Picture;
 use App\Form\CommentType;
+use App\Service\PictureService;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -23,14 +25,22 @@ class CommentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, PictureService $pictureService): Response
     {
-        $user = $this->getUser();
         $comment = new Comment();
+        $user = $this->getUser();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('pictures')->getData();
+            foreach($images as $image){
+                $folder = 'pictures';
+                $fichier = $pictureService->add($image, $folder);
+                $img = new Picture();
+                $img->setName($fichier);
+                $comment->addPicture($img);
+            }
             $comment->setUsers($user);
             $entityManager->persist($comment);
             $entityManager->flush();
