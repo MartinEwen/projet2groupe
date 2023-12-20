@@ -15,6 +15,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
 {
+    use SlugTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,7 +32,7 @@ class Ticket
     private ?bool $isSolved = null;
 
     #[ORM\Column]
-    private ?\DateTimeInterface $dateTime = null;
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $users = null;
@@ -50,6 +52,7 @@ class Ticket
         $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->dateTime = new DateTimeImmutable();
+        $this->isSolved = false;
     }
 
     public function getId(): ?int
@@ -98,7 +101,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): self
     {
         $this->dateTime = $dateTime;
 
