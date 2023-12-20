@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use App\Entity\Comment;
 use App\Entity\Picture;
 use App\Entity\Language;
+use App\Entity\Trait\SlugTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TicketRepository;
@@ -29,8 +30,8 @@ class Ticket
     #[ORM\Column]
     private ?bool $isSolved = null;
 
-    #[ORM\Column]
-    private ?\DateTimeInterface $dateTime = null;
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     private ?User $users = null;
@@ -50,6 +51,7 @@ class Ticket
         $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->dateTime = new DateTimeImmutable();
+        $this->isSolved = false;
     }
 
     public function getId(): ?int
