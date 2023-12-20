@@ -1,6 +1,10 @@
 body {
   min-height: 100vh;
 }
+body img {
+  max-width: 300px;
+  max-height: 300px;
+}
 body h1 {
   color: rgb(11, 11, 11);
   text-shadow: 1px 1px red;

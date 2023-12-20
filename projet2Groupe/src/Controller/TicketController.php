@@ -74,10 +74,12 @@ class TicketController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_show', methods: ['GET'])]
-    public function showMain(Ticket $ticket, CommentRepository $commentRepository): Response
+    public function showMain(Ticket $ticket, CommentRepository $commentRepository, PictureRepository $pictureRepository,TicketRepository $ticketRepository): Response
     {
         return $this->render('ticket/show-main.html.twig', [
-            'ticket' => $ticket,
+            'ticket' => $ticketRepository->findAllDesc(),
+            'tickets' => $ticket,
+            'pictures' => $pictureRepository->findAll(),
             'comments' => $commentRepository->findBy([]),
         ]);
     }
