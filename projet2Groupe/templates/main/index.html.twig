@@ -4,33 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	
+
+	<h1>Bienvenue sur BarbareTicket</h1>
 	<div class="container my-3">
-        <h1>Bienvenue sur BarbareTicket</h1>
-	    <h2>Les derniers tickets</h2>
 		<div class="row">
 			<aside class="col-3 border border light bg-white p-2 rounded-start-4">
+				<h2>Les derniers tickets</h2>
 
-				{% for ticket in tickets %}
-					<article class="card mb-3">
-						<div class="card-header">{{ ticket.title }}</div>
+				{% for tickets in ticket %}
+					<a href="{{ path('app_show', {'id': tickets.id}) }}">
+						<article class="card mb-3">
+							<div class="card-header">{{ tickets.title }}</div>
 
-						<div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-body-secondary"> {{ ticket.id}} </h6>
-                            
-						</div>
-					</article>
+							<div class="card-body">
+								<h6 class="card-subtitle mb-2 text-body-secondary">
+									{{ tickets.id}}
+								</h6>
+
+							</div>
+						</article>
+					</a>
 				{% endfor %}
-
 			</aside>
-			{% block show %}
-				<main class="col-9 border border-light bg-white p-2 rounded-end-4">
-					<h2 class="text-black">Ticket séléctionné</h2>
-				</main>
-				{# <a href="{{ path('show-main.html.twig', {'id': ticket.id}) }}">Voir le ticket</a> #}
-			{% endblock %}
+			<div class="col-9">
+				{% block show %}
+					<main class="col-9 border border-light bg-white p-2 rounded-end-4">
+						<h2 class="text-black">Ticket séléctionné</h2>
+					</main>
+				{% endblock %}
+			</div>
 		</div>
-	</div>
 
-{% endblock %}
-
+	{% endblock %}
