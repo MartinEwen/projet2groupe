@@ -25,9 +25,14 @@ class CommentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, PictureService $pictureService): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        PictureService $pictureService
+        ): Response
     {
         $comment = new Comment();
+        
         $user = $this->getUser();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);

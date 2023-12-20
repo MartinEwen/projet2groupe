@@ -5,11 +5,8 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\Picture;
 use App\Form\TicketType;
-
 use App\Service\PictureService;
-
 use App\Repository\TicketRepository;
-
 use App\Repository\CommentRepository;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,10 +71,17 @@ class TicketController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_show', methods: ['GET'])]
-    public function showMain(Ticket $ticket, CommentRepository $commentRepository): Response
+    public function showMain(
+        Ticket $ticket, 
+        CommentRepository $commentRepository, 
+        PictureRepository $pictureRepository,
+        TicketRepository $ticketRepository
+        ): Response
     {
         return $this->render('ticket/show-main.html.twig', [
-            'ticket' => $ticket,
+            'tickets' => $ticket,
+            'ticket' => $ticketRepository->findAllDesc(),
+            'pictures' => $pictureRepository,
             'comments' => $commentRepository->findBy([]),
         ]);
     }

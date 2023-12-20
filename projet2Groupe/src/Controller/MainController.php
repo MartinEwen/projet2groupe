@@ -13,7 +13,7 @@ class MainController extends AbstractController
     public function index(TicketRepository $ticketRepository): Response
     {
         return $this->render('main/index.html.twig', [
-            'tickets' => $ticketRepository->findAllDesc(),
+            'ticket' => $ticketRepository->findAllDesc(),
             
         ]);
     }

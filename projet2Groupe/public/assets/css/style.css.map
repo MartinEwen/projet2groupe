@@ -1,1 +1,1 @@
-{"version":3,"sources":["_common.scss","style.css"],"names":[],"mappings":"AAAA;EACI,iBAAA;ACCJ;ADCI;EACI,sBAAA;EACA,wBAAA;EACA,kBAAA;ACCR","file":"style.css"}
+{"version":3,"sources":["_common.scss","style.css","_main-card-ticket.scss"],"names":[],"mappings":"AAAA;EACI,iBAAA;ACCJ;ADCI;EACI,sBAAA;EACA,wBAAA;EACA,kBAAA;ACCR;ADGQ;EACI,qBAAA;ACDZ;ADMQ;EACI,iBAAA;EACA,gBAAA;ACJZ;;ACdA;EACG,qBAAA;EACA,qBAAA;EACA,aAAA;EACA,YAAA;ADiBH;ACfI;EACI,kBAAA;ADiBR;ACdI;EACI,aAAA;EACA,6BAAA;EACA,gBAAA;ADgBR;;ACZA;EACI,kBAAA;ADeJ","file":"style.css"}
