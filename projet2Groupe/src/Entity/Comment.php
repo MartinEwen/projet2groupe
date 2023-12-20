@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Picture;
+use App\Entity\Trait\SlugTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
