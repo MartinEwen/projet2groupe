@@ -16,6 +16,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
 {
+    use SlugTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,7 +32,10 @@ class Ticket
     #[ORM\Column]
     private ?bool $isSolved = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+
+    
+
+    #[ORM\Column]
     private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
@@ -100,7 +105,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): static
+    public function setDateTime(\DateTimeImmutable $dateTime): self
     {
         $this->dateTime = $dateTime;
 
