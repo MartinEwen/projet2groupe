@@ -6,7 +6,6 @@ use DateTimeImmutable;
 use App\Entity\Comment;
 use App\Entity\Picture;
 use App\Entity\Language;
-use App\Entity\SlugTrait as EntitySlugTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TicketRepository;
@@ -16,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
 {
-    use EntitySlugTrait;
+    use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,7 +31,7 @@ class Ticket
     #[ORM\Column]
     private ?bool $isSolved = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column]
     private ?\DateTimeImmutable $dateTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
@@ -102,7 +101,7 @@ class Ticket
         return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeImmutable $dateTime): self
+    public function setDateTime(\DateTimeImmutable $dateTime): static
     {
         $this->dateTime = $dateTime;
 
