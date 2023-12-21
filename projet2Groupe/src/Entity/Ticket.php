@@ -40,19 +40,19 @@ class Ticket
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[ORM\ManyToMany(targetEntity: Language::class, mappedBy: 'ticket')]
-    private Collection $languages;
-
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Picture::class, orphanRemoval: true, cascade:['persist'])]
     private Collection $pictures;
+
+    #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'tickets')]
+    private Collection $language;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->languages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->dateTime = new DateTimeImmutable();
         $this->isSolved = false;
+        $this->language = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,33 +151,6 @@ class Ticket
     }
 
     /**
-     * @return Collection<int, Language>
-     */
-    public function getLanguages(): Collection
-    {
-        return $this->languages;
-    }
-
-    public function addLanguage(Language $language): static
-    {
-        if (!$this->languages->contains($language)) {
-            $this->languages->add($language);
-            $language->addTicket($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLanguage(Language $language): static
-    {
-        if ($this->languages->removeElement($language)) {
-            $language->removeTicket($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Picture>
      */
     public function getPictures(): Collection
@@ -203,6 +176,30 @@ class Ticket
                 $picture->setTicket(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Language>
+     */
+    public function getLanguage(): Collection
+    {
+        return $this->language;
+    }
+
+    public function addLanguage(Language $language): static
+    {
+        if (!$this->language->contains($language)) {
+            $this->language->add($language);
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): static
+    {
+        $this->language->removeElement($language);
 
         return $this;
     }

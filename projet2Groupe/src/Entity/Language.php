@@ -18,12 +18,12 @@ class Language
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Ticket::class, inversedBy: 'languages')]
-    private Collection $ticket;
+    #[ORM\ManyToMany(targetEntity: Ticket::class, mappedBy: 'language')]
+    private Collection $tickets;
 
     public function __construct()
     {
-        $this->ticket = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,26 +43,28 @@ class Language
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ticket>
-     */
-    public function getTicket(): Collection
-    {
-        return $this->ticket;
-    }
-
-    public function addTicket(Ticket $ticket): static
-    {
-        if (!$this->ticket->contains($ticket)) {
-            $this->ticket->add($ticket);
-        }
-
-        return $this;
-    }
 
     public function removeTicket(Ticket $ticket): static
     {
         $this->ticket->removeElement($ticket);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): static
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets->add($ticket);
+            $ticket->addLanguage($this);
+        }
 
         return $this;
     }

@@ -57,7 +57,7 @@ class TicketController extends AbstractController
             $entityManager->persist($ticket);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('ticket/new.html.twig', [
@@ -76,7 +76,6 @@ class TicketController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_show', methods: ['GET'])]
-
     public function showMain(
         Ticket $ticket, 
         CommentRepository $commentRepository, 
@@ -88,7 +87,6 @@ class TicketController extends AbstractController
             'tickets' => $ticket,
             'ticket' => $ticketRepository->findAllDesc(),
             'pictures' => $pictureRepository,
-
             'comments' => $commentRepository->findBy([]),
         ]);
     }
