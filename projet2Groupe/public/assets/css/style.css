@@ -40,4 +40,28 @@ body #title-gradiant {
   background: -webkit-linear-gradient(45deg, #094079, #0dcaf0 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#addComment {
+  display: none;
+}
+
+#addComment.active {
+  display: flex;
+}
+
+#addBtn {
+  display: inline-block;
+}
+
+#addBtn.active {
+  display: none;
+}
+
+#deleteBtn {
+  display: none;
+}
+
+#deleteBtn.active {
+  display: inline-block;
 }/*# sourceMappingURL=style.css.map */

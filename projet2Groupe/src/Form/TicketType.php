@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TicketType extends AbstractType
@@ -22,11 +23,10 @@ class TicketType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre'
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Déscription'
             ])
             ->add('language', EntityType::class, [
-
                 'class' => Language::class,
                 'choice_label' => 'name',
                 'required' => true,

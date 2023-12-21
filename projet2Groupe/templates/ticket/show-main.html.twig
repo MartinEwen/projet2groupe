@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block show %}
-	<main class="container my-3">
-		<section class="row">
+	<section class="container my-3">
+		<div class="row">
 			<div class="col">
 				<article class="col-12">
 					<div class="card border-2 border-black">
@@ -43,8 +43,9 @@
                         <p>Il n'y a pas encore de commentaires pour ce ticket</p>
                     </div>        
                 {% endfor %}
-                <a href="{{ path('app_comment_new', {'id': tickets.id} )}}" class="btn btn-info my-2">Ajouter un commentaire</a>
+                <a href="#" class="btn btn-info my-2" id="addBtn">Ajouter un commentaire</a>
+				<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-2" id="deleteBtn">Annuler l'ajout du commentaire</a>
 			</div>
-		</section>
-	</main>
+		</div>
+	</section>
 {% endblock %}
