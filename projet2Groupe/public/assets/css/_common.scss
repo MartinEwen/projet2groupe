@@ -1,5 +1,6 @@
 body {
     min-height: 100vh;
+    background-color: #E0E0E0;
 
     img {
         max-width: 300px;
@@ -7,8 +8,16 @@ body {
     }
     h1 {
         color: rgb(11, 11, 11);
-        text-shadow: 1px 1px red;
+        text-shadow: 1px 1px #0DCAF0;
         text-align: center;
+    }
+    
+    .title {
+
+        img {
+            width: 30px;
+            height: auto;
+        }
     }
 
     aside {
@@ -22,6 +31,23 @@ body {
             max-height: 300px;
             max-width: 300px;
         }
+    }
+
+    #navbar {
+        background-color: black;
+
+        a,
+        button,
+        .navbar-toggler-icon {
+            color: white;
+        }
+    }
+
+    #home-container {
+        border-radius: 20px;
+        background: linear-gradient(315deg, #cacaca, #f0f0f0);
+        box-shadow:  -20px -20px 60px #bebebe,
+                     20px 20px 60px #ffffff;
     }
 }
 
