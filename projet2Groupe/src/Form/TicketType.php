@@ -11,14 +11,19 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('description')
+            ->add('title', TextType::class, [
+                'label' => 'Titre'
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Déscription'
+            ])
             ->add('languages', EntityType::class, [
                 'class' => Language::class,
                 'choice_label' => 'name',

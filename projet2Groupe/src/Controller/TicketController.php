@@ -29,7 +29,12 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, PictureService $pictureService): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        SluggerInterface $slugger, 
+        PictureService $pictureService
+        ): Response
     {
         $ticket = new Ticket();
         $user = $this->getUser();
