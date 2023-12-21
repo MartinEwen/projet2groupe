@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!
+{% block title %}Connexion
 {% endblock %}
 
 {% block body %}
 
-	<main class="container my-3">
+	<main class="container my-5" id="shadow-container">
 		<section class="row">
 			<div class="col">
 				<form method="post">
@@ -17,20 +17,20 @@
 						<div class="mb-3">
 							You are logged in as
 							{{ app.user.userIdentifier }},
-							<a href="{{ path('app_logout') }}">Logout</a>
+							<a href="{{ path('app_logout') }}">Déconnexion</a>
 						</div>
 					{% endif %}
 
-					<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-					<label for="inputEmail">Email</label>
+					<h1 class="h3 mb-3 font-weight-normal mt-3" id="title-gradiant">Connectez-vous</h1>
+					<label for="inputEmail">E-mail</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-					<label for="inputPassword">Password</label>
+					<label for="inputPassword">Mot de passe</label>
 					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-					<button class="btn btn-lg btn-primary mt-2" type="submit">
-						Sign in
+					<button class="btn btn-lg btn-info my-3" type="submit">
+						Connexion
 					</button>
 				</form>
 			</div>

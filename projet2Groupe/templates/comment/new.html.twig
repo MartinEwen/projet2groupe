@@ -4,14 +4,14 @@
 
 {% block body %}
 
-<main class="container my-3">
+<main class="container my-5" id="shadow-container">
     <section class="row">
         <div class="col">
-            <h1>Create new Comment</h1>
+            <h1 class="mt-3" id="title-gradiant">Ajouter un commentaire</h1>
 
             {{ include('comment/_form.html.twig') }}
 
-            <a href="{{ path('app_comment_index') }}" >back to list</a>
+            <a href="{{ path('app_main') }}" class="btn btn-info my-3">Accueil</a>
         </div>
     </section>
 </main>

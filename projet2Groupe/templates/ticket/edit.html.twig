@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Ticket
+{% block title %}Modifier le Ticket
 {% endblock %}
 
 {% block body %}
@@ -8,7 +8,7 @@
 	<main class="container my-3">
 		<section class="row">
 			<div class="col">
-                <h1>Edit Ticket</h1>
+                <h1>Modifier le Ticket</h1>
 				{{ include('ticket/_form.html.twig', {'button_label': 'Modifier'}) }}
 
 				<a href="{{ path('app_ticket_index') }}" class="btn btn-primary mt-2">Retour à la liste</a>

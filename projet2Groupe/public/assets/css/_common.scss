@@ -7,8 +7,6 @@ body {
         max-height: 300px;
     }
     h1 {
-        color: rgb(11, 11, 11);
-        text-shadow: 1px 1px #0DCAF0;
         text-align: center;
     }
     
@@ -43,11 +41,20 @@ body {
         }
     }
 
-    #home-container {
+    #shadow-container {
         border-radius: 20px;
         background: linear-gradient(315deg, #cacaca, #f0f0f0);
         box-shadow:  -20px -20px 60px #bebebe,
                      20px 20px 60px #ffffff;
+    }
+
+    #title-gradiant {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: -webkit-linear-gradient(45deg, #094079, #0dcaf0 80%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 
