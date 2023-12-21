@@ -19,7 +19,7 @@ class TicketType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('languages', EntityType::class, [
+            ->add('language', EntityType::class, [
                 'class' => Language::class,
                 'choice_label' => 'name',
                 'required' => true,
