@@ -1,0 +1,20 @@
+#addComment {
+    display: none;
+}
+#addComment.active {
+    display: flex;
+}
+
+#addBtn {
+    display: inline-block;
+}
+#addBtn.active {
+    display: none;
+}
+
+#deleteBtn {
+    display: none;
+}
+#deleteBtn.active {
+    display: inline-block;
+}

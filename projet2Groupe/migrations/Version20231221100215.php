@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231221095002 extends AbstractMigration
+final class Version20231221100215 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,7 @@ final class Version20231221095002 extends AbstractMigration
         $this->addSql('ALTER TABLE language_ticket DROP FOREIGN KEY FK_8BB394C5700047D2');
         $this->addSql('ALTER TABLE language_ticket DROP FOREIGN KEY FK_8BB394C582F1BAF4');
         $this->addSql('DROP TABLE language_ticket');
+        $this->addSql('ALTER TABLE ticket CHANGE date_time date_time DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +38,6 @@ final class Version20231221095002 extends AbstractMigration
         $this->addSql('ALTER TABLE ticket_language DROP FOREIGN KEY FK_51B28D34700047D2');
         $this->addSql('ALTER TABLE ticket_language DROP FOREIGN KEY FK_51B28D3482F1BAF4');
         $this->addSql('DROP TABLE ticket_language');
+        $this->addSql('ALTER TABLE ticket CHANGE date_time date_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 }
