@@ -33,7 +33,7 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Ticket $ticket = null;
 
-    #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Picture::class, orphanRemoval: true, cascade:['persist'])]
     private Collection $pictures;
 
     public function __construct()
@@ -100,7 +100,7 @@ class Comment
         return $this->ticket;
     }
 
-    public function setTicket(?Ticket $ticket): static
+    public function setTicket(?Ticket $ticket): self
     {
         $this->ticket = $ticket;
 
