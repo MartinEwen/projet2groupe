@@ -26,7 +26,6 @@ class TicketType extends AbstractType
                 'label' => 'Déscription'
             ])
             ->add('language', EntityType::class, [
-
                 'class' => Language::class,
                 'choice_label' => 'name',
                 'required' => true,

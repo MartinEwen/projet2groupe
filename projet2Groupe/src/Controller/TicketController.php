@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Ticket;
+use App\Entity\Comment;
 use App\Entity\Picture;
 use App\Form\TicketType;
+use App\Form\CommentType;
 use App\Service\PictureService;
 use App\Repository\TicketRepository;
 use App\Repository\CommentRepository;
@@ -19,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/ticket')]
 class TicketController extends AbstractController
 {
+    
     #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
     public function index(TicketRepository $ticketRepository, PictureRepository $pictureRepository): Response
     {
@@ -75,29 +78,58 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_show', methods: ['GET', 'POST'])]
     public function showMain(
         Ticket $ticket, 
+        Request $request,
         CommentRepository $commentRepository, 
         PictureRepository $pictureRepository,
-        TicketRepository $ticketRepository
+        EntityManagerInterface $entityManager,
+        TicketRepository $ticketRepository, $id, 
+        PictureService $pictureService
         ): Response
     {
+        $comment = new Comment();
+        $user = $this->getUser();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        $id = $ticketRepository->find($id);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('pictures')->getData();
+            foreach($images as $image){
+                $folder = 'pictures';
+                $fichier = $pictureService->add($image, $folder);
+                $img = new Picture();
+                $img->setName($fichier);
+                $comment->addPicture($img);
+            }
+            $comment->setUsers($user);
+            $comment->setTicket($id);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('ticket/show-main.html.twig', [
             'tickets' => $ticket,
             'ticket' => $ticketRepository->findAllDesc(),
             'pictures' => $pictureRepository,
             'comments' => $commentRepository->findBy([]),
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_ticket_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, TicketRepository $ticketRepository, Ticket $ticket, EntityManagerInterface $entityManager, $id): Response
     {
         $form = $this->createForm(TicketType::class, $ticket);
+        $ticket = $ticketRepository->find($id);
+        $comment->getTicket($ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket = $ticketRepository->find($id);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
