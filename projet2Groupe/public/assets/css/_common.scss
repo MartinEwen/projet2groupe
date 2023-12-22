@@ -25,8 +25,7 @@ body {
 
     #main {
         img {
-            max-height: 300px;
-            max-width: 300px;
+            max-width: 600px;
         }
     }
 
@@ -52,7 +51,7 @@ body {
         text-transform: uppercase;
         font-weight: bold;
         background: -webkit-linear-gradient(45deg, #094079, #0dcaf0 80%);
-        // -webkit-background-clip: text;
+        -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 }

@@ -131,7 +131,6 @@ class TicketController extends AbstractController
     {
         $form = $this->createForm(TicketType::class, $ticket);
         $ticket = $ticketRepository->find($id);
-        $comment->getTicket($ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
