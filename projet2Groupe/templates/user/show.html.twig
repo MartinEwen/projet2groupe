@@ -10,7 +10,7 @@
 			<div class="col">
 				<h1 id="title-gradiant" class="my-3">Mon compte</h1>
 
-				<table class="table-responsive">
+				<table class="table-responsive m-3" id="user-table">
 					<tbody>
 						<tr>
 							<th>Email</th>
@@ -28,16 +28,10 @@
 							<th>Compteur d'aide</th>
 							<td>{{ user.helpCount }}</td>
 						</tr>
-						<tr>
-							<th>Mes tickets</th>
-						</tr>
-						
-						<tr>
-							<th>Mes commentaires</th>
-						</tr>
 					</tbody>
 				</table>
-				<a href="{{ path('app_main') }}" class="btn btn-info my-3">Retour accueil</a>
+
+				<a href="{{ path('app_main') }}" class="btn btn-info m-3">Retour accueil</a>
 			</div>
 		</div>
 	</section>
@@ -46,7 +40,7 @@
         <div class="row">
             <div class="col">
                 <h3 id="title-gradiant" class="my-3">Mes Tickets</h3>
-                <table class="table-responsive">
+                <table class="table-responsive m-3" id="user-table">
                     <tbody>
                         {% for ticket in user.tickets %}
 							<tr>
@@ -61,12 +55,14 @@
 									{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s'): '' }}
 								</td>
 							</tr>
-							<tr>
-								<th>Capture: </th>
+							<tr>					
 								{% for picture in ticket.pictures %}
-									<td>
+                                    {% if ticket.pictures != null %}
+                                    <th>Capture: </th>
+                                    <td>
 										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
 									</td>
+                                    {% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
@@ -86,7 +82,7 @@
         <div class="row">
             <div class="col">
                 <h3 id="title-gradiant" class="my-3">Mes Commentaires</h3>
-                <table class="table-responsive">
+                <table class="table-responsive m-3" id="user-table">
                     <tbody>
                         {% for comment in user.comments %}
                             <tr>
@@ -96,12 +92,14 @@
 								</td>
 							</tr>
 							<tr>
-								<th>Capture: </th>
-								{% for picture in comment.pictures %}
-									<td>
-										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
-									</td>
-								{% endfor %}
+                            {% for picture in comment.pictures %}
+                                {% if comment.pictures != null %}
+                                    <th>Capture: </th>
+                                    <td>
+                                        <img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
 							</tr>
 							<tr>
 								<th>Description: </th>
