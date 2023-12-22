@@ -5,14 +5,14 @@
 
 {% block body %}
 
-    <div class="title d-flex justify-content-evenly">
-        <img src=" {{ asset('image/pictures/barbare.png')}} " alt="">
-        <h1 class="mt-4" id="title-gradiant">Bienvenue sur BarbareTicket</h1>
-    </div>
+	<div class="title d-flex justify-content-evenly">
+		<img src=" {{ asset('image/pictures/barbare.png')}} " alt="">
+		<h1 class="mt-4" id="title-gradiant">Bienvenue sur BarbareTicket</h1>
+	</div>
 	<div class="container my-5" id="shadow-container">
 		<div class="row">
-			<aside class="col-12 col-lg-3">
-                <h5 class="ms-2 mt-2">Les derniers tickets</h5>
+			<aside class="col-lg-3 col-12">
+				<h5 class="ms-2 mt-2">Les derniers tickets</h5>
 
 				{% for tickets in ticket %}
 					<a href="{{ path('app_show', {'id': tickets.id})}}">
@@ -32,7 +32,7 @@
 				{% endfor %}
 			</aside>
 
-			<main class="col-12 col-lg-10 border border p-2 rounded-end-4" id="main">
+			<main class="col-lg-9 col-10 border border p-2 rounded-end-4" id="main">
 				{% block show %}{% endblock %}
 
 			</main>
