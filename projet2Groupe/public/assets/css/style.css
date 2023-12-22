@@ -2,23 +2,17 @@ body {
   min-height: 100vh;
   background-color: #E0E0E0;
 }
-body img {
-  max-width: 300px;
-  max-height: 300px;
-}
 body h1 {
   text-align: center;
 }
 body .title img {
-  width: 30px;
-  height: auto;
+  width: 100px;
 }
 body aside a {
   text-decoration: none;
 }
 body #main img {
-  max-height: 300px;
-  max-width: 300px;
+  max-width: 600px;
 }
 body #navbar {
   background-color: black;

@@ -133,7 +133,6 @@ class TicketController extends AbstractController
     {
         $form = $this->createForm(TicketType::class, $ticket);
         $ticket = $ticketRepository->find($id);
-        // dd($ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
