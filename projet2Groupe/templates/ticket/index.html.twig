@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
 
 {% block title %}Ticket index
 {% endblock %}
 
-{% block body %}
+{% block admin %}
 
 	<main class="container my-5">
 		<section class="row">
-			<div class="col">
+			<div class="col-12">
 				<h1 id="title-gradiant">Liste des tickets</h1>
 				<div class="table-responsive">
 					<table class="table">
@@ -17,7 +17,6 @@
 								<th>Titre</th>
 								<th>Description</th>
 								<th>Résolu</th>
-								<th>Date de création</th>
 								<th>Image</th>
 								<th>actions</th>
 							</tr>
@@ -25,16 +24,18 @@
 						<tbody>
 							{% for ticket in tickets %}
 								<tr>
-									<td>{{ ticket.users.firstname}} {{ ticket.users.lastname}}</td>
+									<td>{{ ticket.users.firstname}}
+										{{ ticket.users.lastname}}</td>
 									<td>{{ ticket.title }}</td>
-									<td>{{ ticket.description }}</td>
+									<td>{{ ticket.description|slice(0, 15) ~ (ticket.description|length > 15 ? '...' : '') }}</td>
 									<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
-									<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
-									<td>{% for picture in pictures %}
-											{% if picture.ticket.id == ticket.id %}
-												<img src="{{ asset('image/pictures/' ~ picture.name) }}" alt="" srcset="">
-											{% endif %} 
+									<td>
+										{% for picture in pictures %}
+											{% if picture.ticket != null and picture.ticket.id == ticket.id %}
+												<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+											{% endif %}
 										{% endfor %}
+
 									</td>
 									<td>
 										<a href="{{ path('app_ticket_show', {'id': ticket.id}) }}" class="btn btn-primary me-3">Montrer</a>
@@ -49,12 +50,11 @@
 						</tbody>
 					</table>
 				</div>
-				
+
 				<a href="{{ path('app_ticket_new') }}" class="btn btn-primary mt-3">Ajouter un ticket</a>
-                <a href="{{ path('admin_index') }}" class="btn btn-primary ms-2 mt-3">Retour Admin</a>
+				<a href="{{ path('admin_index') }}" class="btn btn-primary ms-2 mt-3">Retour Admin</a>
 			</div>
 		</section>
 	</main>
 
 {% endblock %}
-

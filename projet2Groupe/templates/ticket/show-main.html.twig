@@ -15,9 +15,9 @@
 							<div class="text-body-secondary d-flex justify-content-between">
 								<div>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</div>
 								{% for language in tickets.language %}
-									<h5 class="card-subtitle mb-2 text-body-secondary">
+									<h6 class="card-subtitle mb-2 text-body-secondary">
 										{{  language.name }}
-									</h5>
+									</h6>
 								{% endfor %}
 
 								<div>{{ tickets.users.firstname }}
@@ -27,7 +27,7 @@
 
 
 							{% for picture in tickets.pictures %}
-								<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+								<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="" onclick="mettreEnPremierPlan(this)">
 							{% endfor %}
 
 						</div>
@@ -52,7 +52,7 @@
 								</li>
 								<li class="list-group-item">
 									{% for picture in comment.pictures %}
-										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="" onclick="mettreEnPremierPlan(this)">
 									{% endfor %}
 								</li>
 								<li class="list-group-item">
@@ -77,4 +77,3 @@
 		</div>
 	</section>
 {% endblock %}
-

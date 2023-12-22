@@ -2,14 +2,15 @@ body {
     min-height: 100vh;
     background-color: #E0E0E0;
 
-    // img {
-    //     max-width: 300px;
-    //     max-height: 300px;
-    // }
+    img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+
     h1 {
         text-align: center;
     }
-    
+
     .title {
 
         img {
@@ -25,7 +26,7 @@ body {
 
     #main {
         img {
-            max-width: 600px;
+            max-width: 300px;
         }
     }
 
@@ -42,8 +43,8 @@ body {
     #shadow-container {
         border-radius: 20px;
         background: linear-gradient(315deg, #cacaca, #f0f0f0);
-        box-shadow:  -20px -20px 60px #bebebe,
-                     20px 20px 60px #ffffff;
+        box-shadow: -20px -20px 60px #bebebe,
+            20px 20px 60px #ffffff;
     }
 
     #title-gradiant {
@@ -55,4 +56,3 @@ body {
         -webkit-text-fill-color: transparent;
     }
 }
-
