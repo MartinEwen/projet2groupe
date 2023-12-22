@@ -11,3 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 })
+
+function mettreEnPremierPlan(image) {
+    image.style.position = "fixed";
+    image.style.top = "50%";
+    image.style.left = "50%";
+    image.style.transform = "translate(-50%, -50%)";
+    image.style.zIndex = "999";
+    image.onclick = function () {
+        image.style.position = "";
+        image.style.top = "";
+        image.style.left = "";
+        image.style.transform = "";
+        image.style.zIndex = "";
+        image.onclick = function () {
+            mettreEnPremierPlan(image);
+        };
+    };
+}

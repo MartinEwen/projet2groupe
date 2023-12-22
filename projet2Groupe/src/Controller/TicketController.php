@@ -70,10 +70,11 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ticket_show', methods: ['GET'])]
-    public function show(Ticket $ticket, CommentRepository $commentRepository): Response
+    public function show(TicketRepository $ticketRepository, Ticket $ticket, CommentRepository $commentRepository): Response
     {
         return $this->render('ticket/show.html.twig', [
             'ticket' => $ticket,
+            'picture'=> $pictureRepository,
             'comments' => $commentRepository->findBy([]),
         ]);
     }
@@ -91,7 +92,6 @@ class TicketController extends AbstractController
     {
         $comment = new Comment();
         $newUrl = $id;
-        // dd($newUrl);
         $user = $this->getUser();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
