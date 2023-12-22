@@ -52,6 +52,9 @@ body #title-gradiant {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+body .backg-color {
+  background-color: #095c6c;
+}
 
 #addComment {
   display: none;
