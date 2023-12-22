@@ -6,63 +6,74 @@
 {% block show %}
 	<section class="container my-4">
 		<div class="row">
-			<article class="col-12">
-				<div class="card border-2 border-black">
-					<div class="card-body">
-						<h2 class="card-title text-center">{{ tickets.title }}</h2>
-						<div class="text-body-secondary d-flex justify-content-between">
-							<div>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</div>
-							<h4 class="card-subtitle mb-2 text-body-secondary">
+
+			<div class="col">
+				<article class="col-12">
+					<div class="card border-2 border-black">
+						<div class="card-body">
+							<h2 class="card-title text-center">{{ tickets.title }}</h2>
+							<div class="text-body-secondary d-flex justify-content-between">
+								<div>{{ tickets.dateTime ? tickets.dateTime|date('Y-m-d H:i:s') : '' }}</div>
 								{% for language in tickets.language %}
-									{{ language.name }}
+									<h5 class="card-subtitle mb-2 text-body-secondary">
+										{{  language.name }}
+									</h5>
 								{% endfor %}
-							</h4>
-							<div>{{ tickets.users.firstname }}
-								{{ tickets.users.lastname}}</div>
+
+								<div>{{ tickets.users.firstname }}
+									{{ tickets.users.lastname}}</div>
+							</div>
+							<p class="card-text">{{ tickets.description }}</p>
+
+
+							{% for picture in tickets.pictures %}
+								<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+							{% endfor %}
+
 						</div>
-						<p class="card-text">{{ tickets.description }}</p>
-						{% for picture in tickets.pictures %}
-							<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
-						{% endfor %}
-					</div>
-				</div>
 
-			</article>
-			<h3 class="mt-2">Commentaires</h3>
-			{% for comment in comments %}
-				{% if comment.ticket.id == tickets.id %}
-					<div class="card mb-2">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between bg-black text-light">
-								<span>{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</span>
-								{% if comment.tagUser != null %}
-									<span>Tag:
-										{{ comment.tagUser }}
-									</span>
-								{% endif %}
-								<span>
-									{{ comment.users.firstname }}
-									{{ comment.users.lastname }}
-								</span>
-							</li>
-							<li class="list-group-item"></li>
-							<li class="list-group-item">
-								{{ comment.content }}
-							</li>
-						</ul>
 					</div>
-				{% endif %}
 
-			{% else %}
-				<div class="col">
-					<p>Il n'y a pas encore de commentaires pour ce ticket</p>
-				</div>
-			{% endfor %}
-			<div class="col" id="addComment">
-				{{ include('comment/_form.html.twig') }}
+
+				</article>
+				<h3 class="mt-2">Commentaires</h3>
+				{% for comment in comments %}
+					{% if comment.ticket.id == tickets.id %}
+						<div class="card mb-2">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item d-flex justify-content-between bg-black text-light">
+									<span>{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</span>
+									{% if comment.tagUser != null %}
+										<span>Tag:
+											{{ comment.tagUser }}</span>
+									{% endif %}
+									<span>{{ comment.users.firstname }}
+										{{ comment.users.lastname }}</span>
+								</li>
+								<li class="list-group-item">
+									{% for picture in comment.pictures %}
+										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+									{% endfor %}
+								</li>
+								<li class="list-group-item">
+									{{ comment.content }}
+								</li>
+							</ul>
+						</div>
+					{% endif %}
+
+				{% else %}
+					<div class="col">
+						<p>Il n'y a pas encore de commentaires pour ce ticket</p>
+
+					</div>
+				{% endfor %}
+				<div class="col" id="addComment">{{ include('comment/_form.html.twig') }}</div>
+
+				<a class="btn btn-info my-2" id="addBtn">Ajouter un commentaire</a>
+				<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-3" id="deleteBtn">Annuler</a>
 			</div>
-			<a href="#" class="btn btn-info my-2" id="addBtn">Ajouter un commentaire</a>
-			<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-3" id="deleteBtn">Annuler</a>
+
 		</div>
 	</section>
 {% endblock %}
