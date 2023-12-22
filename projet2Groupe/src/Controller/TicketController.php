@@ -121,7 +121,13 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_ticket_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, TicketRepository $ticketRepository, Ticket $ticket, EntityManagerInterface $entityManager, $id): Response
+    public function edit(
+        Request $request, 
+        TicketRepository $ticketRepository, 
+        Ticket $ticket, 
+        EntityManagerInterface $entityManager, 
+        $id
+        ): Response
     {
         $form = $this->createForm(TicketType::class, $ticket);
         $ticket = $ticketRepository->find($id);

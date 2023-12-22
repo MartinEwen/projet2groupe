@@ -2,10 +2,10 @@ body {
     min-height: 100vh;
     background-color: #E0E0E0;
 
-    img {
-        max-width: 300px;
-        max-height: 300px;
-    }
+    // img {
+    //     max-width: 300px;
+    //     max-height: 300px;
+    // }
     h1 {
         text-align: center;
     }
@@ -13,8 +13,7 @@ body {
     .title {
 
         img {
-            width: 30px;
-            height: auto;
+            width: 100px;
         }
     }
 
@@ -53,7 +52,7 @@ body {
         text-transform: uppercase;
         font-weight: bold;
         background: -webkit-linear-gradient(45deg, #094079, #0dcaf0 80%);
-        -webkit-background-clip: text;
+        // -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 }

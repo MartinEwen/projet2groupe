@@ -50,7 +50,7 @@ class CommentController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ticket/show/', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('comment/new.html.twig', [

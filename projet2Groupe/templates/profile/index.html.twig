@@ -5,8 +5,8 @@
 {% block body %}
 
     <h1>Mon Compte</h1>
-    {% if app.user %}
-        
-    {% endif %}
+    <pre>
+        {{ dump(users) }}
+    </pre>
 
 {% endblock %}
