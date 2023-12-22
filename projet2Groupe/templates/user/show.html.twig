@@ -1,46 +1,121 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Mon compte
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>HelpCount</th>
-                <td>{{ user.helpCount }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="container my-5" id="shadow-container">
+		<div class="row">
+			<div class="col">
+				<h1 id="title-gradiant" class="my-3">Mon compte</h1>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+				<table class="table-responsive">
+					<tbody>
+						<tr>
+							<th>Email</th>
+							<td>{{ user.email }}</td>
+						</tr>
+						<tr>
+							<th>Prénom</th>
+							<td>{{ user.firstName }}</td>
+						</tr>
+						<tr>
+							<th>Nom</th>
+							<td>{{ user.lastName }}</td>
+						</tr>
+						<tr>
+							<th>Compteur d'aide</th>
+							<td>{{ user.helpCount }}</td>
+						</tr>
+						<tr>
+							<th>Mes tickets</th>
+						</tr>
+						
+						<tr>
+							<th>Mes commentaires</th>
+						</tr>
+					</tbody>
+				</table>
+				<a href="{{ path('app_main') }}" class="btn btn-info my-3">Retour accueil</a>
+			</div>
+		</div>
+	</section>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <section class="container my-3" id="shadow-container">
+        <div class="row">
+            <div class="col">
+                <h3 id="title-gradiant" class="my-3">Mes Tickets</h3>
+                <table class="table-responsive">
+                    <tbody>
+                        {% for ticket in user.tickets %}
+							<tr>
+								<th>Titre: </th>
+								<td>
+									{{ ticket.title }}
+								</td>
+							</tr>
+							<tr>
+								<th>Date: </th>
+								<td>
+									{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s'): '' }}
+								</td>
+							</tr>
+							<tr>
+								<th>Capture: </th>
+								{% for picture in ticket.pictures %}
+									<td>
+										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+									</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Description: </th>
+								<td>
+									{{ ticket.description }}
+								</td>
+							</tr>
+						{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-    {{ include('user/_delete_form.html.twig') }}
+    <section class="container my-3" id="shadow-container">
+        <div class="row">
+            <div class="col">
+                <h3 id="title-gradiant" class="my-3">Mes Commentaires</h3>
+                <table class="table-responsive">
+                    <tbody>
+                        {% for comment in user.comments %}
+                            <tr>
+								<th>Date: </th>
+								<td>
+									{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}
+								</td>
+							</tr>
+							<tr>
+								<th>Capture: </th>
+								{% for picture in comment.pictures %}
+									<td>
+										<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+									</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Description: </th>
+								<td>
+								    {{ comment.content }}	
+								</td>
+							</tr>
+                            		
+						{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
+

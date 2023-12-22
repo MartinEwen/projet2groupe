@@ -15,8 +15,21 @@ body .title img {
 body aside a {
   text-decoration: none;
 }
+body #user-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+body #user-table td,
+body #user-table th {
+  border: 1px solid black;
+  padding: 8px;
+}
+body #user-table img {
+  width: 50px;
+}
 body #main img {
   max-width: 300px;
+  margin: auto;
 }
 body #navbar {
   background-color: black;
