@@ -6,12 +6,12 @@
 {% block body %}
 
 	<div class="title d-flex justify-content-evenly">
-		<img src=" {{ asset('image/pictures/barbare.png')}} " alt="">
+		{# <img src=" {{ asset('image/pictures/barbare.png')}} " alt=""> #}
 		<h1 class="mt-4" id="title-gradiant">Bienvenue sur BarbareTicket</h1>
 	</div>
 	<div class="container my-5" id="shadow-container">
 		<div class="row">
-			<aside class="col-lg-3 col-12">
+			<aside class="col-12 col-lg-3">
 				<h5 class="ms-2 mt-2">Les derniers tickets</h5>
 
 				{% for tickets in ticket %}
@@ -20,7 +20,9 @@
 							<div class="card-header">{{ tickets.title }}</div>
 							<div class="card-body">
 								<h6 class="card-subtitle mb-2 text-body-secondary">
-									{{ tickets.id}}
+									{% for language in tickets.language %}
+										{{ language.name }}
+									{% endfor %}
 								</h6>
 								<p>
 									{{ tickets.users.firstname }}
@@ -32,7 +34,7 @@
 				{% endfor %}
 			</aside>
 
-			<main class="col-lg-9 col-10 border border p-2 rounded-end-4" id="main">
+			<main class="col-12 col-lg-9 border border p-2 rounded-end-4" id="main">
 				{% block show %}{% endblock %}
 
 			</main>
