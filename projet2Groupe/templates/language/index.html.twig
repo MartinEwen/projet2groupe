@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
 
 {% block title %}Language index
 {% endblock %}
 
-{% block body %}
+{% block admin %}
 
 	<main class="container my-3">
 		<section class="row">
@@ -34,11 +34,10 @@
 					</tbody>
 				</table>
 				<a href="{{ path('app_language_new') }}" class="btn btn-primary">Ajouter un language</a>
-                <a href="{{ path('admin_index') }}" class="btn btn-primary ms-2">Retour Admin</a>
+				<a href="{{ path('admin_index') }}" class="btn btn-primary ms-2">Retour Admin</a>
 			</div>
 		</section>
 	</main>
 
 
 {% endblock %}
-

@@ -6,7 +6,7 @@ body {
         max-width: 300px;
         max-height: 300px;
     }
-  
+
     h1 {
         text-align: center;
     }
@@ -23,8 +23,9 @@ body {
             text-decoration: none;
         }
     }
+
     #user-table {
-        
+
         border-collapse: separate;
         border-spacing: 0;
 
@@ -70,5 +71,9 @@ body {
         background: -webkit-linear-gradient(45deg, #094079, #0dcaf0 80%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+    }
+
+    .backg-color {
+        background-color: #095c6c;
     }
 }
