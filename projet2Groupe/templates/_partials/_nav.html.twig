@@ -43,7 +43,7 @@
 						</li>
 					{% endif %}
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('app_profile_index') }}">Mon compte</a>
+						<a class="nav-link active" aria-current="page" href="{{ path('app_user_show', {'id': app.user.id}) }}">Mon compte</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Me déconnecter</a>

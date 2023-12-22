@@ -6,7 +6,6 @@
 {% block show %}
 	<section class="container my-4">
 		<div class="row">
-
 			<div class="col">
 				<article class="col-12">
 					<div class="card border-2 border-black">
@@ -19,22 +18,15 @@
 										{{  language.name }}
 									</h5>
 								{% endfor %}
-
 								<div>{{ tickets.users.firstname }}
 									{{ tickets.users.lastname}}</div>
 							</div>
 							<p class="card-text">{{ tickets.description }}</p>
-
-
 							{% for picture in tickets.pictures %}
 								<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
 							{% endfor %}
-
 						</div>
-
 					</div>
-
-
 				</article>
 				<h3 class="mt-2">Commentaires</h3>
 				{% for comment in comments %}
@@ -61,19 +53,15 @@
 							</ul>
 						</div>
 					{% endif %}
-
 				{% else %}
 					<div class="col">
 						<p>Il n'y a pas encore de commentaires pour ce ticket</p>
-
 					</div>
 				{% endfor %}
 				<div class="col" id="addComment">{{ include('comment/_form.html.twig') }}</div>
-
 				<a class="btn btn-info my-2" id="addBtn">Ajouter un commentaire</a>
 				<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-3" id="deleteBtn">Annuler</a>
 			</div>
-
 		</div>
 	</section>
 {% endblock %}
