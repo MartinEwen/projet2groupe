@@ -3,6 +3,7 @@
 }
 #addComment.active {
     display: flex;
+    flex-direction: column;
 }
 
 #addBtn {

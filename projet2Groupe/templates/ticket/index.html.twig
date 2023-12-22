@@ -10,7 +10,7 @@
 			<div class="col">
 				<h1 id="title-gradiant">Liste des tickets</h1>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table" id="user-table">
 						<thead>
 							<tr>
 								<th>Auteur</th>
@@ -31,7 +31,7 @@
 									<td>{{ ticket.isSolved ? 'Yes' : 'No' }}</td>
 									<td>{{ ticket.dateTime ? ticket.dateTime|date('Y-m-d H:i:s') : '' }}</td>
 									<td>{% for picture in pictures %}
-											{% if picture.ticket.id == ticket.id %}
+											{% if picture.ticket != null and picture.ticket.id == ticket.id %}
 												<img src="{{ asset('image/pictures/' ~ picture.name) }}" alt="" srcset="">
 											{% endif %} 
 										{% endfor %}
@@ -49,7 +49,6 @@
 						</tbody>
 					</table>
 				</div>
-				
 				<a href="{{ path('app_ticket_new') }}" class="btn btn-primary mt-3">Ajouter un ticket</a>
                 <a href="{{ path('admin_index') }}" class="btn btn-primary ms-2 mt-3">Retour Admin</a>
 			</div>
