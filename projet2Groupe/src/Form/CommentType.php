@@ -21,7 +21,8 @@ class CommentType extends AbstractType
                 'label' => 'Contenu',
             ])
             ->add('tagUser', TextType::class, [
-                'label' => 'Identifier un utilisateur'
+                'label' => 'Identifier un utilisateur',
+                'required' => false,
             ])
             ->add('pictures', FileType::class, [
                 'label' => 'Capture(s) d\'écran',

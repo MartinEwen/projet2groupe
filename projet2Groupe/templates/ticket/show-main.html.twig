@@ -18,9 +18,16 @@
 									{{ tickets.users.lastname}}</div>
 							</div>
 							<p class="card-text">{{ tickets.description }}</p>
-						</div>
+							
+															
+								{% for picture in tickets.pictures %}
+									{{ dump(picture) }}
+									<img src="{{ asset('image/pictures/') ~ picture.name }}" alt="">
+								{% endfor %}
+							
+				</div>
 					</div>
-					{{ include('comment/_form.html.twig') }}
+					
 				</article>
 				<h3 class="mt-2">Commentaires</h3>
 				{% for comment in comments %}
@@ -29,26 +36,32 @@
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item d-flex justify-content-between bg-black text-light">
 									<span>{{ comment.dateTime ? comment.dateTime|date('Y-m-d H:i:s'): '' }}</span>
+									{% if comment.tagUser != null %}
+									<span>Tag: {{ comment.tagUser }}</span>
+									{% endif %}
 									<span>{{ comment.users.firstname }}
 										{{ comment.users.lastname }}</span>
+								</li>							
+								<li class="list-group-item">
+									
 								</li>
-								{% if comment.tagUser != null %}
-									<li class="list-group-item">
-										{{ comment.tagUser }}
-									</li>
-								{% endif %}
-								<li class="list-group-item">{{ comment.content }}</li>
-
+								<li class="list-group-item">
+									{{ comment.content }}
+								</li>
                             </ul>
                         </div>
                     {% endif %}
+					
                 {% else %}
                     <div class="col-12">
                         <p>Il n'y a pas encore de commentaires pour ce ticket</p>
                     </div>        
                 {% endfor %}
+
+				<div class="col" id="addComment">{{ include('comment/_form.html.twig') }}</div>
+
                 <a href="#" class="btn btn-info my-2" id="addBtn">Ajouter un commentaire</a>
-				<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-2" id="deleteBtn">Annuler l'ajout du commentaire</a>
+				<a href="{{ path('app_show', {'id': tickets.id}) }}" class="btn btn-danger my-3" id="deleteBtn">Annuler</a>
 			</div>
 		</div>
 	</section>
