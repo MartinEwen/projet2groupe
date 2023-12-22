@@ -19,8 +19,11 @@ body #user-table {
   border-collapse: separate;
   border-spacing: 0;
 }
-body #user-table td,
-body #user-table th {
+body #user-table tr {
+  margin: 5px 0;
+}
+body #user-table tr td,
+body #user-table tr th {
   border: 1px solid black;
   padding: 8px;
 }
