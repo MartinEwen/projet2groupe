@@ -19,9 +19,12 @@
 						<article class="card mb-3">
 							<div class="card-header">{{ tickets.title }}</div>
 							<div class="card-body">
-								<h6 class="card-subtitle mb-2 text-body-secondary">
-									{{ tickets.id}}
-								</h6>
+								{% for language in tickets.language %}
+									<h6 class="card-subtitle mb-2 text-body-secondary">
+										{{  language.name }}
+									</h6>
+								{% endfor %}
+
 								<p>
 									{{ tickets.users.firstname }}
 									{{ tickets.users.lastname}}

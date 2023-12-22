@@ -90,6 +90,8 @@ class TicketController extends AbstractController
         ): Response
     {
         $comment = new Comment();
+        $newUrl = $id;
+        // dd($newUrl);
         $user = $this->getUser();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -108,7 +110,7 @@ class TicketController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_show', ['id' => $newUrl], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ticket/show-main.html.twig', [
@@ -131,14 +133,14 @@ class TicketController extends AbstractController
     {
         $form = $this->createForm(TicketType::class, $ticket);
         $ticket = $ticketRepository->find($id);
-        $comment->getTicket($ticket);
+        // dd($ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ticket = $ticketRepository->find($id);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('ticket/edit.html.twig', [
@@ -155,6 +157,6 @@ class TicketController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }
 }
